@@ -1,9 +1,13 @@
-{% extends "temps/base.html" %}
+{% extends "base_web.html" %}
 
 {% block content %}
-HELLLLOOOOOOOOO!! {{user}}! 
-{% load static %}
-<img src="/media/temp/username.png">
-<br>
-{{ text }}
+    HELLLLOOOOOOOOO!! {{user}}! 
+    {% load static %}
+    <br>
+    <h3>My Items:</h3>
+    {% for item in items %}
+    - Item Name: {{ item.name}}  <br>
+    - Item QR Code:
+    <img src="{{ item.qrcode.url }}"> <hr>
+    {% endfor %}
 {% endblock %}
