@@ -55,6 +55,6 @@ class RegisterView(FormView):
         try:
             register_new_user(form, self.request)
             messages.success(self.request, 'Thank you for registering. Please login your new Account!')
-            return HttpResponseRedirect(settings.LOGIN_URL)
+            return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
         except IntegrityError as e:
             return redirect('/register')

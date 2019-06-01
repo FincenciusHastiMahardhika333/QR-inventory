@@ -1,13 +1,43 @@
 {% extends "base_web.html" %}
 
+{% block title %}
+    QR Inventory |  {{user}}'s Profile
+{% endblock %}
+
+{% block customcss %}
+{% load staticfiles %}
+{% endblock %}
+
 {% block content %}
-    HELLLLOOOOOOOOO!! {{user}}! 
-    {% load static %}
-    <br>
-    <h3>My Items:</h3>
-    {% for item in items %}
-    - Item Name: {{ item.name}}  <br>
-    - Item QR Code:
-    <img src="{{ item.qrcode.url }}"> <hr>
-    {% endfor %}
+    <section class="py-5">
+        <div class="container">
+            <h3>My Inventory:
+                    <a href="{% url 'create_item' %}" class="btn btn-primary">Create New Item</a>
+            </h3>
+            
+            <div class="row">
+                {% for item in items %}
+                <div class="col-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ item.qrcode.url }}" alt="QR Code">
+                        <div class="card-body">
+                            <h5 class="card-title">Item Name: {{ item.name }} </h5>
+                            {% if item.privacy == 'Private' %}
+                                <span class="badge badge-pill badge-light"> {{ item.privacy }} </span>
+                            {% else %}
+                               <span class="badge badge-pill badge-info"> {{ item.privacy }} </span>
+                            {% endif %}
+                            
+                            <p class="card-text"> {{ item.desc }} </p>
+                            <a href="#" class="btn btn-primary">Details</a> 
+                            <a href="#" class="btn btn-secondary">Edit</a> 
+                            <a href="#" class="btn btn-danger">Detete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}  
+             </div> 
+        </div>
+    </section>
+    <br><br><br><br>  <br><br><br><br>
 {% endblock %}
