@@ -10,6 +10,7 @@ import pyqrcode
 from PIL import Image
 from  django.core.files import File
 from QRinventory import settings
+import pyzbar.pyzbar as pyzbar
 
 def get_qrcode(tag):
     qr = pyqrcode.create(tag)
@@ -52,3 +53,35 @@ class Create_item_Form(FormView):
         except IntegrityError as e:
             return redirect('/profile')
 
+class SearchItemForm(forms.Form):
+    qrcode = forms.ImageField(label='Upload QR Code')
+    searching = forms.BooleanField(label='Search in All Public Inventories', required=False)
+
+class search_item_Form(FormView):
+    template_name = "item/search_item.html"
+    form_class = SearchItemForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        try:
+            user = self.request.user
+            
+            text = pyzbar.decode(Image.open(form.cleaned_data['qrcode']))
+            text = text[0].data.decode("utf-8")
+           
+            searching = form.cleaned_data['searching']
+            if searching:
+                items = Item.objects.filter(tag=text, privacy='Public')
+            else:
+                items = Item.objects.filter(tag=text, owner=user)
+                
+            return render(self.request, 'item/search_results.html', {'items': items})
+        except IntegrityError as e:
+            return render(self.request, 'item/search_results.html')
+
+def search_results(request):
+    return render(request, 'item/search_results.html')
+
+def show_item(request, item_id):
+    item = Item.objects.get(id=item_id)
+    return render(request, 'item/show_item.html', {'item': item})

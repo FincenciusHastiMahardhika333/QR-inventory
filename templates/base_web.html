@@ -13,6 +13,7 @@
     {% block title %}
     {% endblock %}
     </title>
+
     {% block customcss %}
     {% endblock %}
     
@@ -47,14 +48,20 @@
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">| My Profile |</a>
-                </li>
-                <li class="nav-item">
-                        <a style="color: burlywood" class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          My Account
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a style="color:black" class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+                          <a style="color:black" class="dropdown-item" href="{% url 'settings' %}">Settings</a>
+                          <a style="color: black" class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                      </div>
                 </li>
                 {% else %}
                 <li class="nav-item" >
-                        <a style="color: burlywood" class="nav-link" href="{% url 'login' %}">Login</a>
+                        <a style="color: burlywood" class="nav-link" href="{% url 'login' %}">Sign In</a>
                 </li>
                 {% endif %}
                 </ul>

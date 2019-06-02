@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    QR Inventory | Create Item
+    QR Inventory | Search Item
 {% endblock %}
 
 {% block customcss %}
@@ -13,7 +13,7 @@
         }
     
         #content-main {
-            max-width: 400px;
+            max-width: 500px;
             padding: 19px 29px 29px;
             margin: 0 auto 20px;
             background-color: #fff;
@@ -63,15 +63,15 @@
             {% endfor %}
         {% endif %}
     
-        <h2>Create New Item</h2>
+        <h2>Search Your Item With QRcode</h2>
         <hr>
     
-        <form method="post" id="login-form">
+        <form enctype="multipart/form-data" method="post" id="login-form">
             {% csrf_token %}
             {{ form.as_p }}
-        <div class="submit-row">
-            <input class="btn btn-secondary"  type="submit" value="Save">
-        </div>
+            <div class="submit-row">
+                <input class="btn btn-secondary"  type="submit" value="Search">
+            </div>
         </form>
     </div>
 {%  endblock %}

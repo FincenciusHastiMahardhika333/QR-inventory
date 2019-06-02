@@ -1,0 +1,20 @@
+:::: TO DO ::::
+
+++ Django (Website)
+    - Item: 
+        - add more attributes to the model e.g creation date
+        - edit, delete option
+        - share with other users
+    - User:
+        - edit, delete user profile
+        - add more attributes to the model basic information
+    
+    # Bootstrap Resposive, frontend setup
+
+
+++ React Native Application
+    - User Authentication
+    - Fetch User's Items
+    - CRUD Items
+    - Share Items
+    - Search Items through QR scan
