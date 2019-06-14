@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <section class="py-5">
         <div class="container">
             <h3>My Inventory
@@ -30,8 +38,38 @@
                             {% endif %}</h5>
                             <hr>
                             <a href="{% url 'show_item' item.id %}" class="btn btn-primary">Details</a> 
-                            <a href="#" class="btn btn-secondary">Edit</a> 
-                            <a href="#" class="btn btn-danger">Detete</a>
+                            <a href="{% url 'edit_item' item.id %}" class="btn btn-secondary">Edit</a>
+
+                            <!-- Button to Open the Modal -->
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                                    Delete
+                            </button>
+                                
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                            
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">Delete Item?</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                            
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                    Are you sure?
+                                    </div>
+                            
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                    <a type="button" href="{% url 'delete_item' item.id %}" class="btn btn-danger">Yes</a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                            
+                                </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
